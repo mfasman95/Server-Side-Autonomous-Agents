@@ -1,0 +1,42 @@
+{
+  "name": "Server-Side-Autonomous-Agents",
+  "version": "1.0.0",
+  "description": "Server side autonomous agents simulation for users in rooms",
+  "main": "index.js",
+  "repository": "https://github.com/mfasman95/Server-Side-Autonomous-Agents.git",
+  "author": "Matthew Fasman <mfasman95@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./server/app.js",
+    "dev": "concurrently \"npm run client\" \"npm run nodemon\"",
+    "client": "node ./scripts/start-client.js",
+    "nodemon": "nodemon ./server/app.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Tests complete\""
+  },
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4",
+    "xxhashjs": "^0.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "nodemon": "^1.12.1"
+  },
+  "eslintConfig": {
+    "extends": "airbnb/base",
+    "rules": {
+      "no-underscore-dangle": "off",
+      "no-plusplus": "off"
+    }
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
+}
