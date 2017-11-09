@@ -63,7 +63,7 @@ class Room {
     // Tell the user that they left the room
     user.leaveRoom();
     // Delete the user from the occupants object on this room
-    for (let i = 0; i < this.occupants; i++) {
+    for (let i = 0; i < this.occupants.length; i++) {
       if (this.occupants[i].id === user.id) {
         this.occupants.splice(i, 1);
       }

@@ -92,7 +92,7 @@ class AgentMaker extends React.Component {
             <Slider
               name='Mass'
               step={1}
-              min={0}
+              min={1}
               max={20}
               value={this.state.mass}
               onChange={this.handleMass}
