@@ -6,7 +6,11 @@ const xxh = require('xxhashjs');
 const _ = require('lodash');
 
 // Add custom classes
-const { Room, User, Message, Agent, Force } = require('./classes');
+const {
+  Room,
+  User,
+  Message,
+} = require('./classes');
 
 const { log } = console;
 
@@ -41,7 +45,7 @@ const emitToRoom = emitFunc => room => (message) => {
     if (user) emitFunc(user.socket, message);
   }
 };
-const genericEmitToRoom = emitToRoom(genericEmit);
+// const genericEmitToRoom = emitToRoom(genericEmit);
 const reduxEmitToRoom = emitToRoom(reduxEmit);
 
 const clientEmitHandler = (sock, eventData) => {

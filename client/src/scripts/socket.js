@@ -9,7 +9,7 @@ export const connect = () => {
     // Socket connection location depends on NODE_ENV
     (process.env.NODE_ENV === 'development') ?
       sock = io.connect('http://localhost:3001') :
-      sock = io.connect('HEROKU_SERVER_LOCATION')
+      sock = io.connect()
   );
 };
 connect();
@@ -22,7 +22,7 @@ export const emit = (event, data) => socket.emit('clientEmit', { event, data });
 const genericEmitHandler = (emitData) => {
   switch (emitData.event) {
     case 'joined': {
-      return log('User Joined Socket Io!');
+      return log('User Connected To Socket IO');
     }
     default: {
       return warn(`Received a generic emit with an unknown event name: ${emitData.event}`);

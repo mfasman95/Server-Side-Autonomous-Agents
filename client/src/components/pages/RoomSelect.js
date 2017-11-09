@@ -10,7 +10,7 @@ class RoomSelect extends React.Component {
     super(props);
 
     this.state = {
-      roomName: 'a',
+      roomName: '',
     }
 
     this.roomInput = this.roomInput.bind(this);
