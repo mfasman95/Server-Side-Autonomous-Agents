@@ -8,8 +8,8 @@ class ForceMaker extends React.Component {
     super(props);
 
     this.state = {
-      xDir: 0.5,
-      yDir: 0.5,
+      xDir: 0,
+      yDir: 0,
       magnitude: 10,
     }
 
@@ -39,7 +39,7 @@ class ForceMaker extends React.Component {
           <Slider
             name={'X Direction'}
             step={0.05}
-            min={0}
+            min={-1}
             max={1}
             value={this.state.xDir}
             onChange={this.handleXDir}
@@ -49,7 +49,7 @@ class ForceMaker extends React.Component {
           <Slider
             name={'Y Direction'}
             step={0.05}
-            min={0}
+            min={-1}
             max={1}
             value={this.state.yDir}
             onChange={this.handleYDir}
