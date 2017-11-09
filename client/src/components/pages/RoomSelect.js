@@ -10,7 +10,7 @@ class RoomSelect extends React.Component {
     super(props);
 
     this.state = {
-      roomName: '',
+      roomName: 'a',
     }
 
     this.roomInput = this.roomInput.bind(this);
@@ -34,22 +34,22 @@ class RoomSelect extends React.Component {
     return (
       <Col xs={10} xsOffset={1}>
         <h3>Select a Room, or Make a New One!</h3>
-          <TextInput
-            title='Make Room'
-            placeholder='Enter a unique room name here...'
-            value={this.state.roomName}
-            updateValue={this.roomInput}
-            submit={this.roomSubmit}
-          />
-        <Well className='room-well'>
-          {
-            hasRooms ?
-              // If there are rooms, map them to buttons for those rooms
-              roomKeys.map((key, i) => <RoomButton key={i} id={key}/>) :
-              // If there are not rooms, display a message
-              <h4>There Are No Rooms To Select</h4>
-          }
-        </Well>
+        <TextInput
+          title='Make Room'
+          placeholder='Enter a unique room name here...'
+          value={this.state.roomName}
+          updateValue={this.roomInput}
+          submit={this.roomSubmit}
+        />
+        {
+          hasRooms ?
+            // If there are rooms, map them to buttons for those rooms
+            <Well className='room-well'>
+             { roomKeys.map((key, i) => <RoomButton key={i} id={key}/>) }
+            </Well> :
+            // If there are not rooms, display a message
+            <h4>There Are No Rooms To Select</h4>
+        }
       </Col>
     );
   }

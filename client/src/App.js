@@ -3,18 +3,7 @@ import logo from './logo.svg';
 import './css/App.css';
 import Router from './components/generic/Router';
 import { emit } from './scripts/socket';
-
-// Import 404 page
-import NotFound from './components/pages/NotFound';
-// Import the pages
-import Home from './components/pages/Home';
-import RoomSelect from './components/pages/RoomSelect';
-
-// Store the imported pages in a single object to pass to the router
-const pages = {
-  Home,
-  RoomSelect,
-};
+import Pages, { NotFound } from './components/pages';
 
 class App extends Component {
   render() {
@@ -27,9 +16,9 @@ class App extends Component {
             alt="logo"
             onClick={ () => emit('goHome', {}) }
           />
-          <h1 className="App-title">Autonomous Agent Demos</h1>
+          <h1 className="App-title">Physics Simulation</h1>
         </header>
-        <Router pages={pages} notFound={NotFound}/>
+        <Router pages={Pages} notFound={NotFound}/>
       </div>
     );
   }

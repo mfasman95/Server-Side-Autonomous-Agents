@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { emit } from './../../scripts/socket';
 
-class ToDo extends React.Component {
+class RoomButton extends React.Component {
   constructor(props) {
     super(props);
 
@@ -36,4 +36,4 @@ const mapStateToProps = (state, ownprops) => {
   }
 }
 
-export default connect(mapStateToProps)(ToDo);
+export default connect(mapStateToProps)(RoomButton);

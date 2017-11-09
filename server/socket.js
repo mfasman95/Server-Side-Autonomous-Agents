@@ -1,8 +1,12 @@
+const childProcess = require('child_process');
+const path = require('path');
+
 const chalk = require('chalk');
 const xxh = require('xxhashjs');
+const _ = require('lodash');
 
 // Add custom classes
-const { Room, User, Message } = require('./classes');
+const { Room, User, Message, Agent, Force } = require('./classes');
 
 const { log } = console;
 
@@ -31,10 +35,10 @@ const genericEmit = emit('generic');
 const reduxEmit = emit('redux');
 
 // Build functions to emit to a full room
-const emitToRoom = emitFunc => (room, message) => {
+const emitToRoom = emitFunc => room => (message) => {
   for (let i = 0; i < room.currentOccupancy; i++) {
-    const user = users[room.occupants[i]];
-    emitFunc(user.socket, message);
+    const user = users[room.occupants[i].id];
+    if (user) emitFunc(user.socket, message);
   }
 };
 const genericEmitToRoom = emitToRoom(genericEmit);
@@ -58,9 +62,10 @@ const clientEmitHandler = (sock, eventData) => {
 
         // Send the updated room info to the users in the specified room
         // and to the users in the starting room
-        const updateMsg = new Message('UPDATE_ROOM', { room });
-        reduxEmitToRoom(room, updateMsg);
-        reduxEmitToRoom(startingRoom, updateMsg);
+        const roomData = _.pick(room, room.keysToPick);
+        const updateMsg = new Message('UPDATE_ROOM', { room: roomData });
+        reduxEmitToRoom(room)(updateMsg);
+        reduxEmitToRoom(startingRoom)(updateMsg);
       }
 
       // Clear the user's name
@@ -76,10 +81,15 @@ const clientEmitHandler = (sock, eventData) => {
     }
     case 'makeRoom': {
       const room = new Room(data.roomName);
+      // Give this room a reference to the function that can emit to everyone inside of it
+      room.reduxEmitAll = reduxEmitToRoom(room);
+
+      // Store this room in the rooms object
       rooms[room.id] = room;
 
       // Emit this room down to all clients
-      reduxEmitToRoom(startingRoom, new Message('UPDATE_ROOM', { room }));
+      const roomData = _.pick(room, room.keysToPick);
+      reduxEmitToRoom(startingRoom)(new Message('UPDATE_ROOM', { room: roomData }));
       break;
     }
     case 'joinRoom': {
@@ -89,14 +99,36 @@ const clientEmitHandler = (sock, eventData) => {
         // Add the user to that room
         room.addUser(user);
         // Move this user to the simulation page
+        reduxEmit(socket, new Message('SELECT_ROOM', { id: room.id }));
         reduxEmit(socket, new Message('CHANGE_PAGE', { page: 'Simulation' }));
-        const updateMsg = new Message('UPDATE_ROOM', { room });
+        const roomData = _.pick(room, room.keysToPick);
+        const updateMsg = new Message('UPDATE_ROOM', { room: roomData });
         // Update this client about the state of their room
         reduxEmit(socket, updateMsg);
         // Update every client still in the main room
-        reduxEmitToRoom(startingRoom, updateMsg);
+        reduxEmitToRoom(startingRoom)(updateMsg);
       }
       // TODO: Handle if the room doesn't exist
+      break;
+    }
+    case 'destroyForce': {
+      const room = rooms[user.inRoom];
+      room.simulation.send(new Message('deleteForce', { id: data.id }));
+      break;
+    }
+    case 'destroyAgent': {
+      const room = rooms[user.inRoom];
+      room.simulation.send(new Message('removeAgent', { id: data.id }));
+      break;
+    }
+    case 'addForce': {
+      const room = rooms[user.inRoom];
+      room.simulation.send(new Message('updateForce', { force: data }));
+      break;
+    }
+    case 'addAgent': {
+      const room = rooms[user.inRoom];
+      room.simulation.send(new Message('updateAgent', { agent: data }));
       break;
     }
     default: { log(chalk.red(`Emit ${event} received from ${socket.hash} without a handler`)); }
@@ -118,9 +150,19 @@ const handleConnect = (sock) => {
 
   // Emit that the user joined to the client
   genericEmit(socket, new Message('joined', {}));
+
+  // Make sure the initial room data being sent is valid for going over socket.io
+  const roomsData = {};
+  const roomKeys = Object.keys(rooms);
+  for (let i = 0; i < roomKeys.length; i++) {
+    const room = rooms[roomKeys[i]];
+    roomsData[room.id] = _.pick(room, room.keysToPick);
+  }
+
   // Send any necessary info for initiating the connection
   reduxEmit(socket, new Message('INIT', {
-    rooms,
+    rooms: roomsData,
+    id: hash,
   }));
 };
 

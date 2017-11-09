@@ -8,7 +8,7 @@ export const connect = () => {
   sock = (
     // Socket connection location depends on NODE_ENV
     (process.env.NODE_ENV === 'development') ?
-      sock = io.connect('http://localhost:3000') :
+      sock = io.connect('http://localhost:3001') :
       sock = io.connect('HEROKU_SERVER_LOCATION')
   );
 };

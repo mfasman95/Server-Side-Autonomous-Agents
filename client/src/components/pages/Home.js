@@ -8,7 +8,7 @@ class Home extends React.Component {
     super(props);
 
     this.state = {
-      username: '',
+      username: 'a',
     }
 
     this.usernameInput = this.usernameInput.bind(this);

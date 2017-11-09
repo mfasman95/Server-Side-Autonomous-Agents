@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
 
-class NotFound extends React.Component {
+class Page404 extends React.Component {
   render() {
     return (
       <div>
@@ -14,4 +14,4 @@ class NotFound extends React.Component {
   }
 }
 
-export default (NotFound);
+export default Page404;

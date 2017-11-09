@@ -3,6 +3,8 @@ import extend from 'extend';
 // Set initial application state
 const initialState = {
   rooms: {},
+  agents: {},
+  forces: {},
 };
 
 // Handle actions dispatched to the reducer
@@ -12,6 +14,7 @@ const actionHandlers = {
 
     // Set the initial rooms
     rs.rooms = action.rooms;
+    rs.id = action.id;
     return rs;
   },
   UPDATE_ROOM: (returnState, action) => {
@@ -26,6 +29,28 @@ const actionHandlers = {
 
     // Remove the given room from the state
     delete rs.rooms[action.room.id];
+    return rs;
+  },
+  SELECT_ROOM: (returnState, action) => {
+    const rs = returnState;
+
+    // Store the room this user has selected
+    rs.inRoom = action.id;
+    return rs;
+  },
+  LEAVE_ROOM: (returnState) => {
+    const rs = returnState;
+
+    // Delete the memory of the room this user selected
+    delete rs.inRoom;
+    return rs;
+  },
+  SIMULATION_UPDATE: (returnState, action) => {
+    const rs = returnState;
+
+    // Get updated info on the agents and forces in the simulation
+    rs.agents = action.agents;
+    rs.forces = action.forces;
     return rs;
   },
 };

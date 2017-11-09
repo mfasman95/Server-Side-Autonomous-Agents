@@ -2543,7 +2543,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.16:
+fbjs@^0.8.14, fbjs@^0.8.16:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -3915,6 +3915,10 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
+konva@^1.7.6:
+  version "1.7.6"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-1.7.6.tgz#7aceef1058b04127077c8f44653556b35b1133e6"
+
 latest-version@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/latest-version/-/latest-version-2.0.0.tgz#56f8d6139620847b8017f8f1f4d78e211324168b"
@@ -5250,9 +5254,9 @@ react-dev-utils@^4.2.1:
     strip-ansi "3.0.1"
     text-table "0.2.0"
 
-react-dom@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.0.0.tgz#9cc3079c3dcd70d4c6e01b84aab2a7e34c303f58"
+react-dom@16.1.0-beta:
+  version "16.1.0-beta"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.1.0-beta.tgz#15a1f9d021fc19d7dfa23e627f89994d7e7c7514"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -5263,6 +5267,13 @@ react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
 
+react-konva@1.5.7-beta:
+  version "1.5.7-beta"
+  resolved "https://registry.yarnpkg.com/react-konva/-/react-konva-1.5.7-beta.tgz#e3f71bf2f7b04b2c1255d20b52a3628501688e2a"
+  dependencies:
+    fbjs "^0.8.14"
+    react-reconciler "^0.2.0"
+
 react-overlays@^0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.4.tgz#ef2ec652c3444ab8aa014262b18f662068e56d5c"
@@ -5272,6 +5283,15 @@ react-overlays@^0.7.4:
     prop-types "^15.5.10"
     prop-types-extra "^1.0.1"
     warning "^3.0.0"
+
+react-reconciler@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.2.0.tgz#59407c3e868211a7a6218070a55dfbc9c93b2243"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 react-redux@^5.0.6:
   version "5.0.6"
@@ -5327,9 +5347,9 @@ react-scripts@1.0.17:
   optionalDependencies:
     fsevents "1.1.2"
 
-react@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.0.0.tgz#ce7df8f1941b036f02b2cca9dbd0cb1f0e855e2d"
+react@16.1.0-beta:
+  version "16.1.0-beta"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.1.0-beta.tgz#4cfbf9d98b3394bcadbdcf6fc7c7a2f5c5dc8203"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
